@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick, Draw!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Patrick+Hand+SC&family=Noto+Serif&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        letter-spacing: 0.06em;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        /* height: 100%;
+        overflow: hidden; */
+      }
+
+      h2 {
+        font-family: "Patrick Hand SC", cursive;
+        font-size: 3rem;
+      }
+
+      .section {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .section img {
+        width: 150%;
+        margin-left: -25%;
+        margin-right: -25%;
+      }
+
+      .section p {
+        align-self: flex-start;
+        width: 100%;
+        text-align: left;
+        text-align: justify;
+      }
+
+      #horizontalScroll {
+        width: 100vh;
+        /* height: 240px; */
+        height: 1000px;
+        overflow-x: hidden;
+        white-space: nowrap;
+        /* line-height: 0;
+        margin-left: calc(-50vw + 50%); */
+      }
+
+      #horizontalScroll img {
+        /* width: 3000px;
+        height: 240px; */
+        width: 14000px;
+        height: 1000px;
+        vertical-align: top;
+      }
+
+      #imageDisplay1 {
+        text-align: center;
+        width: 100%;
+      }
+
+      #imageDisplay2 {
+        text-align: center;
+        width: 100%;
+      }
+
+      hr {
+        height: 4px;
+        background-color: #1f77b4;
+        border: none;
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+      }
+
+      div > ul {
+        padding-left: 0;
+        margin-left: 0;
+        list-style-position: inside;
+        font-size: 0.9rem;
+      }
+
+      #replayAnimation {
+        background-color: transparent;
+        color: black;
+        border: none;
+        text-decoration: underline;
+        text-decoration-color: #1f77b4;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 5px;
+        outline: none;
+      }
+
+      #replayAnimation:hover {
+        text-decoration-thickness: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section" id="section2">
+      <h2>Quick Draw! The Data</h2>
+      <p>
+        The Quick, Draw! dataset originates from a web-based game called "Quick,
+        Draw!", developed by Google. In this game, users are prompted to sketch
+        an object or concept in under 20 seconds, and a neural network tries to
+        guess what the users are drawing in real-time.
+      </p>
+      <p>
+        The Quick, Draw! dataset encompasses a wide array of 345 distinct
+        categories, ranging from everyday objects like apple or bicycle to more
+        concepts like The Great wall of China and Mona Lisa or even magic and
+        love.
+      </p>
+      <p>
+        Each category consists of tens of thousands of doodles, offering a
+        unique insight into how diverse global participants visually represent
+        common concepts through simple sketches.
+      </p>
+      <p>
+        For the purpose of this assignment, I am trying to find ways to explore
+        this dataset and comparing them to stories from across the world. I do
+        not have a call to action here other than showing how people think and
+        feel about certain things and how similar yet diverse or how diverse yet
+        similar we are - but that's for you, my dear reader, to decide.
+      </p>
+      <p>
+        The dataset has been analyzed using python and this application has been
+        made using HTML/CSS/Javascript with a little D3.js.
+      </p>
+      <p>How I made drawings from this dataset, let me show you an example</p>
+      <div>
+        <span style="font-size: 0.9rem">{</span>
+        <ul>
+          <li>"word":"house"</li>
+          <li>"countrycode":"US"</li>
+          <li>"timestamp":"2017-03-11 19:09:26.08877 UTC"</li>
+          <li>"recognized":true</li>
+          <li>"key_id":"5054419760578560"</li>
+          <li>
+            "drawing":[[[9,9,13,19,23,41,62,129,145,164,166,161,141,132,0],[108,212,239,252,255,255,253,236,231,220,189,164,100,85,108]],[[3,3,14,44,63,75,100,135],[107,92,68,22,1,0,16,72]],[[27,22,25,37,60,65,63,22],[157,162,203,210,210,203,148,148]],[[13,49,74],[185,187,184]],[[38,42],[156,212]]]
+          </li>
+        </ul>
+        <span style="font-size: 0.9rem">}</span>
+      </div>
+      <br />
+      <div id="chartLegend"></div>
+      <button id="replayAnimation">Click Here To Replay</button>
+
+      <p>
+        So below are the few questions that came to my mind when I saw this
+        dataset and accompanied by the stories that I wanted to tell.
+      </p>
+
+      <hr />
+      <p style="font-weight: 900">
+        Question 1: Is this game spread equally across all countries in the
+        world?
+      </p>
+      <hr />
+      <p>
+        Let's take a look at the number of entries from each country. I will try
+        to answer this question using 3 sets of drawings - Houses, Mona Lisa and
+        Eiffel Tower
+      </p>
+      <em><p>Each bar can be hovered over to see some sample drawings.</p></em>
+      <div id="chart1"></div>
+      <div id="imageDisplay"></div>
+
+      <hr />
+      <p style="font-weight: 900">
+        Question 2: Does more stroke mean more details?
+      </p>
+      <hr />
+      <p>
+        A stroke is a what you draw on the screen without lifitng your digital
+        pen. Let's take a look at the number of drawings drawn for a dog, cat
+        and a bird by the number of strokes it took to draw them.
+      </p>
+      <em><p>Each bar can be hovered over to see some sample drawings.</p></em>
+      <div id="chart2"></div>
+      <div id="imageDisplay1"></div>
+      <hr />
+      <p>
+        Question 3: Faster drawn sketches are less detailed than slowly drawn
+        ones:
+      </p>
+      <hr />
+      <p>
+        There is one more array of the data that talks about the time which the
+        legend does not show to keep things simple and not code all weekend
+        (&#10052; &#x2615; &#x1F9E3; &#x1F9E6; &#x1F642;). But from the legend
+        above, every dot is where a timestamp was created. The difference
+        between the first and the last gives the amount of time in milliseconds.
+      </p>
+      <div id="chart3"></div>
+      <div id="imageDisplay2"></div>
+    </div>
+    <br />
+    <br />
+    <p>
+      So keep scrolling for a few AI generated sketches used only for the
+      purpose of this assignment, which by no means will be used commercially.
+    </p>
+
+    <div id="horizontalScroll">
+      <img src="Frame 3.png" alt="Your Image Description" />
+    </div>
+    <script src="index.js"></script>
+    <script src="index1.js"></script>
+    <script src="index21.js"></script>
+    <script src="index31.js"></script>
+  </body>
+</html>

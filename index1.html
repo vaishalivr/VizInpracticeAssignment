@@ -1,0 +1,122 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Horizontal Scroll on Vertical Scrolling</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #horizontalScroll {
+        width: 100%;
+        height: 100vh;
+        overflow-x: hidden;
+        white-space: nowrap;
+        font-size: 24px;
+        line-height: 100vh;
+        text-align: center;
+        background-color: aquamarine;
+      }
+
+      #horizontalScroll span {
+        display: inline-block;
+        margin-right: 50px;
+      }
+
+      #horizontalScroll img {
+        width: 3000px; /* Width of your image */
+        height: 240px; /* Height of your image */
+        vertical-align: top; /* Aligns image to the top of the container */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="horizontalScroll">
+      <span>Scroll vertically to move this text horizontally! |</span>
+      <span>Section 2 |</span>
+      <span>Section 3 |</span>
+      <span>Section 4 |</span>
+      <span>Section 5 |</span>
+      <span>Section 6 |</span>
+      <span>Section 7 |</span>
+      <span>Section 8 |</span>
+      <span>Section 9 |</span>
+      <span>Section 10 |</span>
+      <span>Section 11 |</span>
+      <span>Section 12 |</span>
+      <span>Section 13 |</span>
+      <span>Section 14 |</span>
+      <span>Section 15 |</span>
+      <span>Section 16 |</span>
+      <span>Section 17 |</span>
+      <span>Section 18 |</span>
+      <span>Section 19 |</span>
+      <span>Section 20 |</span>
+    </div>
+
+    <script>
+      document.addEventListener(
+        "wheel",
+        function (e) {
+          var horizontalScroll = document.getElementById("horizontalScroll");
+          horizontalScroll.scrollLeft += e.deltaY;
+          console.log("New scrollLeft:", horizontalScroll.scrollLeft);
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Horizontal Scroll on Vertical Scrolling</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* Prevents default page scrolling */
+      }
+
+      #horizontalScroll {
+        width: 100%;
+        height: 240px; /* Height of your image */
+        overflow-x: hidden;
+        white-space: nowrap;
+        line-height: 0; /* Removes extra space below the image */
+      }
+
+      #horizontalScroll img {
+        width: 3000px; /* Width of your image */
+        height: 240px; /* Height of your image */
+        vertical-align: top; /* Aligns image to the top of the container */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="horizontalScroll">
+      <!-- Your image -->
+      <img src="example_image.png" alt="Your Image Description" />
+    </div>
+
+    <script>
+      document.addEventListener(
+        "wheel",
+        function (e) {
+          var horizontalScroll = document.getElementById("horizontalScroll");
+          horizontalScroll.scrollLeft += e.deltaY;
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+    </script>
+  </body>
+</html>
